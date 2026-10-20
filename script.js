@@ -1,6 +1,7 @@
 /* 1. FOTO: Masukkan nama file foto di sini (taruh satu folder dengan file ini) ===== */
 const PHOTOS={
-  cover: 'gedung-bmkg.png',       // 'gedung-bmkg.jpg'
+  logo: 'logo-smkm3-transparan.png',  // Logo SMKM 3 Ciputat untuk Cover
+  cover: 'pkl.jpeg',       // 'gedung-bmkg.jpg'
   tempat: 'ruang-kerja.jpeg',      // 'ruang-kerja.jpg'
   p1main: 'main1.png',      //  'buku-tamu.png'
   p1masuk: 'masuk1.png',     //  'form-masuk.png'
@@ -13,11 +14,37 @@ const PHOTOS={
 
 /* 2. ISI SLIDE: teks dalam [ ... ] otomatis jadi sorotan kuning */
 const S=[
-{t:'cover',title:'Perancangan UI/UX Sistem Buku Tamu dan Logbook PKL',sub:'Balai Besar Meteorologi Klimatologi dan Geofisika Wilayah II',who:'Muhamad Rizky Apriadi · Rekayasa Perangkat Lunak\nSMK Muhammadiyah 3 Ciputat Tangerang Selatan · 2026',photo:['cover','gedung-bmkg.png']},
+{t:'cover',title:'Perancangan UI/UX Sistem Buku Tamu dan Logbook PKL',sub:'Balai Besar Meteorologi Klimatologi dan Geofisika Wilayah II',who:'Muhamad Rizky Apriadi · Rekayasa Perangkat Lunak\nSMK Muhammadiyah 3 Ciputat Tangerang Selatan · 2026',photo:['cover','pkl.jpeg'],logo:'logo-smkm3-transparan.png'},
 {t:'split',title:'Tempat dan Waktu PKL',cards:[
  {h:'Instansi',b:'Unit pelaksana teknis BMKG untuk pelayanan data cuaca, iklim, kualitas udara, gempa bumi, dan tsunami di wilayah kerja II.'},
  {h:'Waktu',b:'3 Agustus – 30 Oktober 2026, Hari Senin s.d. Kamis, Pukul 09.00 – 15.00 WIB',a:1},
  {h:'Lokasi',b:'Jl. H. Abdul Gani No. 05, Pesanggrahan, Ciputat Timur, Kota Tangerang Selatan'}],photo:['tempat','ruang-kerja.jpeg']},
+{t:'struktur',title:'Struktur BBMKG Wilayah II',
+ kepala:{title:'Kepala Balai',name:'Dr. Hartanto, S.T., M.T.'},
+ leftCol:{
+   title:'Kepala Bagian Tata Usaha',
+   sub:'Kepegawaian, keuangan, persuratan, program & laporan',
+   head:'Ana Oktafiana Susilawati',
+   items:[
+     {h:'Persuratan dan Kepegawaian',desc:'Surat masuk/keluar, kearsipan, administrasi pegawai',lead:'Daniel Febriantono'},
+     {h:'Keuangan dan Perlengkapan',desc:'Anggaran, laporan keuangan, pengelolaan BMN & sarana',lead:'Tina Kunti Angraini, S.Kom., M.Kom.'},
+     {h:'Media',desc:'Konten sosial media, website, desain grafis, pemberitaan',lead:'Regina Dara Ninggar, M.Si.'},
+     {h:'Kerja Sama',desc:'Penyiapan dan penyusunan perjanjian kerja sama dalam negeri',lead:'Fitriadi, S.T., M.T.'},
+     {h:'Laporan Rencana, Monitoring, Evaluasi',desc:'Renstra, laporan kinerja (LAKIP/LKj), SAKIP, evaluasi program',lead:'Hesti Rahayu Ningsih'}
+   ]
+ },
+ rightCol:{
+   title:'Tim Kerja Operasional',
+   sub:'Langsung di bawah Kepala Balai',
+   items:[
+     {h:'Meteorologi dan Klimatologi',desc:'Pengamatan cuaca, prakiraan & peringatan dini cuaca/iklim',lead:'Neli Rahmawati, M.Kom.'},
+     {h:'Geofisika',desc:'Pemantauan gempa bumi & tsunami, diseminasi informasi',lead:'Sutiono, S.Si.'},
+     {h:'Instrumentasi dan Kalibrasi',desc:'Pemeliharaan dan kalibrasi peralatan MKG',lead:'Arif Udin, S.T., M.T.'},
+     {h:'Manajemen Data dan Jaringan Komunikasi',desc:'Monitoring & arsip data, jaringan komunikasi, bimbingan PKL',lead:'Hesti Rahayu Ningsih',pkl:true}
+   ]
+ },
+ pklNote:'Tim kerja tempat PKL'
+},
 {t:'cards',title:'Kegiatan Utama',cols:3,cards:[
  {n:'01',h:'Buku Tamu QR',b:'Merancang sistem buku tamu digital berbasis QR Code untuk ruangan Jarkom.'},
  {n:'02',h:'Logbook PKL',b:'Membangun tampilan peserta dan admin untuk pencatatan kegiatan harian magang.',a:1},
@@ -55,21 +82,71 @@ const S=[
 {t:'bullets',title:'Kesimpulan',items:['Ilmu Rekayasa Perangkat Lunak (RPL) dari sekolah dapat diterapkan langsung pada proyek nyata instansi.','Berhasil merancang dan membangun dua sistem: Buku Tamu QR Code dan Logbook PKL.','Meningkatkan kemampuan dalam hal UI/UX design, pemrograman web, dan problem solving.','Membentuk sikap disiplin, tanggung jawab, dan komunikasi yang baik di lingkungan kerja.'],note:'Pengalaman PKL di BBMKG Wilayah II memberikan wawasan dunia kerja IT yang sesungguhnya.'},
 {t:'end',title:'Sekian & Terima Kasih',sub:'NANYA SEWAJARNYA YA GAIS'}
 ];
+
 /* 3. MESIN SLIDE (Jangan diubah kecuali paham) */
 const hl=t=>t.replace(/\[([^\]]+)\]/g,'<mark>[$1]</mark>').replace(/\n/g,'<br>');
 const ph=(k,label)=>PHOTOS[k]?`<img class="ph-img" src="${PHOTOS[k]}" alt="">`:`<div class="ph">${hl(label)}</div>`;
 const pad=n=>String(n).padStart(2,'0'),rots=[-.8,.6,-.4,.8];
 const head=(t,i)=>`<div class="lbl">FIG. ${pad(i+1)}</div><h2>${t}</h2>`;
 const card=(c,i,tag,extra='')=>`<div class="card r ${c.a?'a':''} ${extra}" style="--i:${i};--rot:${rots[i%4]}deg;${c.span?'grid-column:span '+c.span:''}">${tag?`<span class="tag">ST-${pad(i+1)}</span>`:''}${extra?'<i class="dot"></i>':''}${c.n?`<div class="num">${c.n}</div>`:''}<h3>${hl(c.h)}</h3><p>${hl(c.b)}</p></div>`;
+
 const R={
- cover:s=>`<div class="cpanel"></div><div class="cover"><div class="cl"><div class="chip r" style="--i:0">LAPORAN PRAKTIK KERJA LAPANGAN</div><h1 class="r" style="--i:1">${hl(s.title)}</h1><div class="rgbbar r" style="--i:2"></div><p class="sub r" style="--i:3">${s.sub}</p><p class="who r" style="--i:4">${hl(s.who)}</p></div><div class="cpic r" style="--i:2"><div class="pol">${ph(...s.photo)}</div><div class="stamp">PKL<b>2026</b>BBMKG</div></div></div>`,
+ cover:s=>`<div class="cpanel"></div><div class="cover"><div class="cl"><div style="display:flex;align-items:center;gap:14px;margin-bottom:18px"><img src="${s.logo||PHOTOS.logo}" alt="Logo Sekolah" style="height:52px;width:auto;object-fit:contain;" class="r" style="--i:0"><div class="chip r" style="--i:0;margin-bottom:0">LAPORAN PRAKTIK KERJA LAPANGAN</div></div><h1 class="r" style="--i:1">${hl(s.title)}</h1><div class="rgbbar r" style="--i:2"></div><p class="sub r" style="--i:3">${s.sub}</p><p class="who r" style="--i:4">${hl(s.who)}</p></div><div class="cpic r" style="--i:2"><div class="pol">${ph(...s.photo)}</div><div class="stamp">PKL<b>2026</b>BBMKG</div></div></div>`,
  split:(s,i)=>`${head(s.title,i)}<div class="split"><div class="col">${s.cards.map((c,j)=>card(c,j,1)).join('')}</div><div class="pol r" style="--i:3">${ph(...s.photo)}</div></div>`,
  cards:(s,i)=>`${head(s.title,i)}<div class="cards" style="grid-template-columns:repeat(${s.cols},1fr)">${s.cards.map((c,j)=>card(c,j,!c.n)).join('')}</div>`,
  steps:(s,i)=>`${head(s.title,i)}<div class="track"><div class="line"></div><div class="pkt"></div><div class="cards" style="grid-template-columns:repeat(5,1fr)">${s.steps.map((x,j)=>card({n:x[0],h:x[1],b:x[2],a:j%2},j,0,'step')).join('')}</div></div><p class="note r" style="--i:6">${hl(s.note)}</p>`,
  trio:(s,i)=>`${head(s.title,i)}<div class="trio" style="grid-template-columns:repeat(${s.items.length},1fr)">${s.items.map((x,j)=>`<div class="card r ${j%2?'a':''}" style="--i:${j};--rot:${rots[j]}deg"><div class="pic">${ph(x[0],x[1])}</div><h3>${x[2]}</h3><p>${hl(x[3])}</p></div>`).join('')}</div>`,
  table:(s,i)=>`${head(s.title,i)}<table><tr><th>Masalah</th><th>Pemecahan</th></tr>${s.rows.map((r,j)=>`<tr class="row" style="--i:${j}"><td>${hl(r[0])}</td><td>${hl(r[1])}</td></tr>`).join('')}</table><span class="cur">▌</span>`,
  bullets:(s,i)=>`${head(s.title,i)}<ul>${s.items.map((t,j)=>`<li class="r" style="--i:${j}">${t}</li>`).join('')}</ul><p class="note r" style="--i:5">${hl(s.note)}</p>`,
-end:s=>{const w=s.title.split('&'),sv=(body,vb='0 0 100 100')=>`<svg viewBox="${vb}">${body}</svg>`,K='stroke="#0B2A4A" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"';
+ struktur:(s,i)=>`${head(s.title,i)}
+  <div class="org-chart" style="display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:-10px;">
+    <!-- Kepala Balai -->
+    <div class="card r" style="--i:1;background:var(--ink);color:#fff;width:320px;text-align:center;padding:10px 16px;border-radius:8px;box-shadow:4px 4px 0 var(--blue);rotate:0deg;">
+      <h3 style="font-size:16px;margin:0;color:#fff;">${s.kepala.title}</h3>
+      <p style="font-size:14px;margin:2px 0 0;color:#FFE066;font-weight:700;">${s.kepala.name}</p>
+    </div>
+    <div style="width:2px;height:12px;background:var(--ink);"></div>
+    <div style="width:580px;height:2px;background:var(--ink);margin-top:-12px;"></div>
+    
+    <!-- Row Dua Kolom -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;width:100%;max-width:1120px;">
+      <!-- Kolom Kiri -->
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div class="card r" style="--i:2;background:var(--blue);color:#fff;padding:10px 14px;border-radius:6px;rotate:0deg;box-shadow:3px 3px 0 var(--ink);">
+          <h3 style="font-size:15px;margin:0;color:#fff;">${s.leftCol.title}</h3>
+          <p style="font-size:12px;margin:2px 0 0;opacity:.9;">${s.leftCol.sub}</p>
+          <p style="font-size:12px;margin:2px 0 0;font-weight:700;color:#FFE066;">Kepala: ${s.leftCol.head}</p>
+        </div>
+        ${s.leftCol.items.map((item,j)=>`
+          <div class="card r" style="--i:${j+3};padding:8px 12px;border-radius:6px;rotate:0deg;box-shadow:3px 3px 0 #ddd;">
+            <h4 style="font-size:13px;font-weight:800;margin:0 0 2px 0;">${item.h}</h4>
+            <p style="font-size:11px;margin:0;color:#444;line-height:1.2;">${item.desc}</p>
+            <p style="font-size:11px;margin:2px 0 0 0;color:var(--blue);font-weight:700;">Kepala: ${item.lead}</p>
+          </div>
+        `).join('')}
+      </div>
+
+      <!-- Kolom Kanan -->
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div class="card r" style="--i:2;background:var(--blue);color:#fff;padding:10px 14px;border-radius:6px;rotate:0deg;box-shadow:3px 3px 0 var(--ink);">
+          <h3 style="font-size:15px;margin:0;color:#fff;">${s.rightCol.title}</h3>
+          <p style="font-size:12px;margin:2px 0 0;opacity:.9;">${s.rightCol.sub}</p>
+        </div>
+        ${s.rightCol.items.map((item,j)=>`
+          <div class="card r ${item.pkl?'a':''}" style="--i:${j+3};padding:8px 12px;border-radius:6px;rotate:0deg;box-shadow:3px 3px 0 ${item.pkl?'var(--amber)':'#ddd'};${item.pkl?'border:2.5px solid var(--amber);':''}">
+            <h4 style="font-size:13px;font-weight:800;margin:0 0 2px 0;">${item.h}</h4>
+            <p style="font-size:11px;margin:0;color:#444;line-height:1.2;">${item.desc}</p>
+            <p style="font-size:11px;margin:2px 0 0 0;color:var(--blue);font-weight:700;">Kepala: ${item.lead}</p>
+          </div>
+        `).join('')}
+        <div class="r" style="--i:8;display:flex;align-items:center;gap:8px;margin-top:4px;">
+          <span style="width:14px;height:14px;background:var(--amber);border-radius:3px;display:inline-block;border:1px solid var(--ink);"></span>
+          <span style="font-size:12px;font-weight:700;color:var(--ink);">${s.pklNote}</span>
+        </div>
+      </div>
+    </div>
+  </div>`,
+ end:s=>{const w=s.title.split('&'),sv=(body,vb='0 0 100 100')=>`<svg viewBox="${vb}">${body}</svg>`,K='stroke="#0B2A4A" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"';
   const rays=[0,45,90,135,180,225,270,315].map(r=>`<line x1="50" y1="5" x2="50" y2="17" transform="rotate(${r} 50 50)"/>`).join('');
   return `<div class="endwrap"><svg width="0" height="0" style="position:absolute"><filter id="ink"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="2.4"/></filter></svg>
 <svg class="iso" viewBox="0 0 1280 720" fill="none" stroke="#0B2A4A" stroke-width="2.5"><ellipse cx="640" cy="330" rx="190" ry="120" transform="rotate(-12 640 330)"/><ellipse cx="640" cy="330" rx="290" ry="190" transform="rotate(-9 640 330)"/><ellipse cx="640" cy="330" rx="400" ry="260" transform="rotate(-6 640 330)"/><ellipse cx="640" cy="330" rx="520" ry="330" transform="rotate(-3 640 330)"/><g fill="#0B2A4A" stroke="none" font-family="Consolas,monospace" font-size="18" font-weight="700"><text x="440" y="398">996</text><text x="352" y="440">1000</text><text x="246" y="476">1004</text><text x="126" y="506">1008</text></g></svg>
@@ -82,6 +159,7 @@ end:s=>{const w=s.title.split('&'),sv=(body,vb='0 0 100 100')=>`<svg viewBox="${
 <div class="ticket r" style="--i:6">${s.sub}</div>
 <div class="hintc r" style="--i:7">KLIK DI MANA SAJA UNTUK MEMBERI CAP</div></div>`;}
 };
+
 const stage=document.getElementById('stage'),root=document.getElementById('slides');
 root.innerHTML=S.map((s,i)=>`<section class="slide ${s.t==='end'?'endslide':''}">${R[s.t](s,i)}</section>`).join('');
 const els=[...root.children],tk=document.getElementById('tk');
@@ -183,7 +261,7 @@ go(start-1);
 
 /* SLIDE TERAKHIR: klik di mana saja = cap stempel baru */
 (function(){
- const WORDS=['ASIKK','SELESAI GAIS','FINALLY','PKL 2026','RATE DONG?','#BMKG'],COL=['#E4572E','#1E88E5','#0B2A4A','#FF4FA3'];let n=0;
+ const WORDS=['WELL WELL WELL','SELESAI GAIS','FINALLY','KELAZ GAK?','RATE DONG?','KETIK 1 KLO KEREN'],COL=['#E4572E','#1E88E5','#0B2A4A','#FF4FA3'];let n=0;
  document.addEventListener('click',e=>{
   const sl=els[els.length-1];if(cur!==els.length-1||!sl.classList.contains('active'))return;
   if(document.getElementById('lb').classList.contains('on')||e.target.closest('#nav'))return;
